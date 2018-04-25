@@ -21,7 +21,7 @@ def input_to_index(input)
 end
 
 #Move
-def move(board,index,token="X")
+def move(board,index,token)
   board[index]=token
 end
 
@@ -46,13 +46,13 @@ def turn(board,marker)
   input = gets.chomp
   
   index = input_to_index(input)
+  
   if valid_move?(board,index) == false
-    turn(board)
+    turn(board,marker)
+  else
+    move(board,index,current_player(board))
+    display_board(board)
   end
-  
-  move(board,index,marker)
-  
-  display_board(board)
   
 end
 
@@ -130,7 +130,6 @@ def won?(board)
 def play(board)
   while !(over?(board))
     marker = current_player(board)
-    puts marker
     turn(board,marker)
   end
   if winner(board)
